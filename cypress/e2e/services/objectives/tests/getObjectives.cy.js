@@ -1,4 +1,4 @@
-import { getObjectivesPrograms } from '../requests/GETObjectives.request';
+import { getObjectivesPrograms } from '../requests/getObjectives.request';
 
 describe('GET /objectives/programs', () => {
   it('should return a list of objectives and programs', () => {
