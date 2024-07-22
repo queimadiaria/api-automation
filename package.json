@@ -4,13 +4,15 @@
   "description": "",
   "main": "cypress.config.js",
   "scripts": {
-   "cypress:open": "./node_modules/.bin/cypress-open",
-   "cypress:run": "./node_modules/.bin/cypress run"
+    "cypress:open": "./node_modules/.bin/cypress-open",
+    "cypress:run": "./node_modules/.bin/cypress run",
+    "start": "http-server -p 3000"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^13.13.1"
+    "cypress": "^13.13.1",
+    "http-server": "^14.1.1"
   }
 }
