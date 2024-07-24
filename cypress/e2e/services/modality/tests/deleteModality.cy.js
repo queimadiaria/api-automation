@@ -1,4 +1,3 @@
-// cypress/e2e/services/modality/tests/DELETEModality.spec.js
 import { postModality } from '../requests/postModality.request';
 import { deleteModality } from '../requests/deleteModality.request';
 
