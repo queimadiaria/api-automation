@@ -1,7 +1,7 @@
-export const getInstructorsPrograms = (id, locale = 'pt-br') => {
+export const getTargetId = (id, targetId) => {
     return cy.request({
       method: 'GET',
-      url: `/instructors/programs?locale=${locale}`,
+      url: `/targets/find-one/${targetId}`,
       headers: {
         Authorization: `Bearer ${id}`
       },
