@@ -105,12 +105,12 @@ describe("GET /integration/last-class", () => {
         };
 
         for (const [key, value] of Object.entries(
-          expectedDetailsMetadataProperties
+          expectedDetailsStreamMetadataProperties
         )) {
           if (typeof value === "string") {
-            expect(detailsMetadata).to.have.property(key).and.to.be.a(value);
+            expect(detailsStreamMetaData).to.have.property(key).and.to.be.a(value);
           } else {
-            expect(detailsMetadata).to.have.property(key, value);
+            expect(detailsStreamMetaData).to.have.property(key, value);
           }
         }
       });
