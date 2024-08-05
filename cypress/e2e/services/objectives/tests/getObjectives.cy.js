@@ -1,44 +1,74 @@
 import { getObjectivesPrograms } from '../requests/getObjectives.request';
 
+const validateProgram = (program) => {
+  const expectedProgramProperties = {
+    id: 'number',
+    description: 'string',
+    name: 'string',
+    imageVertical: 'string',
+    imageCard: 'string',
+    imageBanner: 'string',
+    imageLogo: 'string',
+    tag: 'array',
+    levels: 'array',
+  };
+
+  for (const [key, value] of Object.entries(expectedProgramProperties)) {
+    if (value === 'string' || value === 'number') {
+      expect(program).to.have.property(key).and.to.be.a(value);
+    } else if (value === 'array') {
+      expect(program).to.have.property(key).and.to.be.an(value);
+    }
+  }
+
+  program.levels.forEach(validateLevel);
+};
+
+const validateLevel = (level) => {
+  const expectedLevelProperties = {
+    id: 'number',
+    name: 'string',
+    expressionId: 'number',
+  };
+
+  for (const [key, value] of Object.entries(expectedLevelProperties)) {
+    if (typeof value === 'string') {
+      expect(level).to.have.property(key).and.to.be.a(value);
+    } else {
+      expect(level).to.have.property(key).and.to.be.a(value);
+    }
+  }
+};
+
+const validateObjective = (objective) => {
+  const expectedObjectiveProperties = {
+    id: 'number',
+    name: 'string',
+    description: 'string',
+    expressionId: 'number',
+    programs: 'array',
+  };
+
+  for (const [key, value] of Object.entries(expectedObjectiveProperties)) {
+    if (value === 'string' || value === 'number') {
+      expect(objective).to.have.property(key).and.to.be.a(value);
+    } else if (value === 'array') {
+      expect(objective).to.have.property(key).and.to.be.an(value);
+    }
+  }
+
+  objective.programs.forEach(validateProgram);
+};
+
 describe('GET /objectives/programs', () => {
   it('should return a list of objectives and programs', () => {
     getObjectivesPrograms().then((response) => {
       expect(response.status).to.eq(200);
 
-      expect(response.body).to.be.an('array');
+      const objectives = response.body;
+      expect(objectives).to.be.an('array').that.is.not.empty;
 
-      const firstItem = response.body[0];
-      expect(firstItem).to.have.property('id');
-      expect(firstItem).to.have.property('name');
-      expect(firstItem).to.have.property('description');
-      expect(firstItem).to.have.property('expressionId');
-      expect(firstItem).to.have.property('programs');
-
-      expect(firstItem.programs).to.be.an('array');
-
-      const firstProgram = firstItem.programs[0];
-      expect(firstProgram).to.have.property('id');
-      expect(firstProgram).to.have.property('description');
-      expect(firstProgram).to.have.property('name');
-      expect(firstProgram).to.have.property('imageVertical');
-      expect(firstProgram).to.have.property('imageCard');
-      expect(firstProgram).to.have.property('imageBanner');
-      expect(firstProgram).to.have.property('imageLogo');
-      expect(firstProgram).to.have.property('tag');
-      expect(firstProgram).to.have.property('levels');
-      expect(firstProgram).to.have.property('description');
-
-      expect(firstProgram.levels).to.be.an('array');
-
-      const firstLevel = firstProgram.levels[0];
-      expect(firstLevel).to.have.property('id');
-      expect(firstLevel).to.have.property('name');
-      expect(firstLevel).to.have.property('expressionId');
-
-      const firstlevels = firstProgram.levels[0];
-      expect(firstlevels).to.have.property('id');
-      expect(firstlevels).to.have.property('name');
-      expect(firstlevels).to.have.property('expressionId');
+      objectives.forEach(validateObjective);
     });
   });
 });
