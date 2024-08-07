@@ -1,6 +1,6 @@
 import { getIntegrationListSegments } from '../requests/getIntegrationListSeg.request';
 
-describe('GET /modality', () => {
+describe('GET /integration/list-segments/{language}', () => {
     const languages = ['pt-br', 'es-mx'];
     before(() => {
         cy.getAuthToken().as('id');

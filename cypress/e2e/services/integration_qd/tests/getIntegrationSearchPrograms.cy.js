@@ -1,6 +1,6 @@
 import { getIntegrationSearchPrograms } from "../requests/getIntegrationSearchPrograms.request";
 
-describe("GET /integration/last-class", () => {
+describe("GET /integration/search/programs", () => {
   before(() => {
     cy.getAuthToken().as("id");
   });
