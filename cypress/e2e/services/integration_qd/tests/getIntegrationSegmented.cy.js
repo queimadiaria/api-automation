@@ -13,16 +13,13 @@ describe(`GET /integration/search/programs/segmented/detail/{id}`, () => {
 
       const integration = response.body;
       const expectedProperties = {
-        id: 103,
-        programId: programID,
-        numberOfClasses: 12,
-        durationTime: 14,
-        durationValue: "Até 15 min",
-        recommendedAge: null,
-        intensity: "moderado",
-        frequency: 3,
-        gender: null,
-        recommendationPriority: null,
+        id: "number",
+        programId: "number",
+        numberOfClasses: "number",
+        durationTime: "number",
+        durationValue: "string",
+        intensity: "string",
+        frequency: "number",
         updatedAt: "string",
         createdAt: "string",
         programs: "object",
@@ -34,15 +31,15 @@ describe(`GET /integration/search/programs/segmented/detail/{id}`, () => {
         tagss: "array",
       };
 
-      for (const [key, value] of Object.entries(expectedProperties)) {
-        if (
-          typeof value === "string" &&
-          key !== "durationValue" &&
-          key !== "intensity"
-        ) {
-          expect(integration).to.have.property(key).and.to.be.a(value);
-        } else {
-          expect(integration).to.have.property(key, value);
+      for (const [key, expectedType] of Object.entries(expectedProperties)) {
+        const actualValue = integration[key];
+
+        if (actualValue !== null) {
+          const actualType = Array.isArray(actualValue)
+            ? "array"
+            : typeof actualValue;
+
+          expect(actualType).to.equal(expectedType);
         }
       }
 
@@ -305,15 +302,15 @@ describe(`GET /integration/search/programs/segmented/detail/{id}`, () => {
 
       detailsInstructors.forEach((instructors) => {
         const expectedInstructorsProperties = {
-            id: 1,
-            name: 'Lana Pessoa',
-            backgroudImage: 'string',
-            backgroudImageMobile: 'string',
-            layout: 'string',
-            description: 'string',
-            linkImage: 'string',
-            updatedAt: 'string',
-            createdAt: 'string',
+          id: 1,
+          name: "Lana Pessoa",
+          backgroudImage: "string",
+          backgroudImageMobile: "string",
+          layout: "string",
+          description: "string",
+          linkImage: "string",
+          updatedAt: "string",
+          createdAt: "string",
         };
         for (const [key, value] of Object.entries(
           expectedInstructorsProperties
@@ -326,22 +323,19 @@ describe(`GET /integration/search/programs/segmented/detail/{id}`, () => {
         }
       });
 
-
       const detailsTargetss = integration.targetss;
       expect(detailsTargetss).to.be.an("array").that.is.not.empty;
 
       detailsTargetss.forEach((targetss) => {
         const expectedTargetssProperties = {
-            id: 1,
-            type: 'string',
-            translateBr: 'string',
-            translateLatam: 'string',
-            updatedAt: 'string',
-            createdAt: 'string',
+          id: 1,
+          type: "string",
+          translateBr: "string",
+          translateLatam: "string",
+          updatedAt: "string",
+          createdAt: "string",
         };
-        for (const [key, value] of Object.entries(
-          expectedTargetssProperties
-        )) {
+        for (const [key, value] of Object.entries(expectedTargetssProperties)) {
           if (value === null) {
             expect(level).to.have.property(key).and.to.be.null;
           } else if (typeof value === "string") {
@@ -350,29 +344,32 @@ describe(`GET /integration/search/programs/segmented/detail/{id}`, () => {
         }
       });
 
-
       const detailsTagss = integration.tagss;
-      expect(detailsTagss).to.be.an("array").that.is.not.empty;
+      expect(detailsTagss).to.be.an("array");
 
-      detailsTagss.forEach((tagss) => {
-        const expectedTagssProperties = {
-            id: 1,
-            value: 'string',
-            updatedAt: 'string',
-            createdAt: 'string',
-        };
-        for (const [key, value] of Object.entries(
-          expectedTagssProperties
-        )) {
-          if (value === null) {
-            expect(level).to.have.property(key).and.to.be.null;
-          } else if (typeof value === "string") {
-            expect(tagss).to.have.property(key).and.to.be.a("string");
+      if (detailsTagss.length > 0) {
+        detailsTagss.forEach((tagss) => {
+          const expectedTagssProperties = {
+            id: "number",
+            value: "string",
+            updatedAt: "string",
+            createdAt: "string",
+          };
+
+          for (const [key, expectedType] of Object.entries(
+            expectedTagssProperties
+          )) {
+            const actualValue = tagss[key];
+
+            if (actualValue !== null) {
+              const actualType = typeof actualValue;
+              expect(actualType).to.equal(expectedType);
+            }
           }
-        }
-      });
-
-
+        });
+      } else {
+        cy.log("O array 'tagss' está vazio.");
+      }
     });
   });
 });

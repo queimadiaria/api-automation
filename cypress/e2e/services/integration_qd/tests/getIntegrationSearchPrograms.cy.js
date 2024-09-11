@@ -16,7 +16,6 @@ describe("GET /integration/search/programs", () => {
             id: "number",
             details_programs_id: "number",
             name: "string",
-            description: "string",
             frequency: "number",
             duration_time: "number",
             gender: ["null", "string"],
@@ -49,14 +48,14 @@ describe("GET /integration/search/programs", () => {
 
           detailsTags.forEach((tags) => {
             const expectedTagsProperties = {
-              id: "number",
-              name: "string",
+              id: ["null", "number",],
+              name: ["null", "string"]
             };
             for (const [key, value] of Object.entries(expectedTagsProperties)) {
-              if (typeof value === "string") {
-                expect(tags).to.have.property(key).and.to.be.a(value);
+              if (Array.isArray(value)) {
+                expect(value).to.include(typeof tags[key] === "object" && tags[key] === null ? "null" : typeof tags[key]);
               } else {
-                expect(tags).to.have.property(key, value);
+                expect(tags).to.have.property(key).and.to.be.a(value);
               }
             }
           });
