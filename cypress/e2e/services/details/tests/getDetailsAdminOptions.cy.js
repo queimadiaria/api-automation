@@ -73,7 +73,7 @@ describe(`GET /details/find-by/program/{programId}`, () => {
         });
         const detailsDurationValues = response.body.durationValues;
         expect(detailsDurationValues).to.be.an("array").that.is.not.empty;
-        detailsForMothers.forEach((value) => {
+        detailsDurationValues.forEach((value) => {
           expect(value).to.be.a("string");
         });
       });
