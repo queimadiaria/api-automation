@@ -1,14 +1,14 @@
-import { getDetailsFindByProgramId } from "../requests/getDetailsFindByProgramId.request";
+import { getDetailsFindByDetailsProgramId } from "../requests/getDetailsByDetailsProgramId.request";
 
-describe(`GET /details/find-by/program/{programId}`, () => {
+describe(`GET /details/find-by/details-program/{id}`, () => {
   before(() => {
     cy.getAuthToken().as("id");
   });
 
-  it('"Should get Detail program id"', function () {
-    const programId = 339;
+  it("Should get by details Programs id", function () {
+    const programId = 250;
     cy.get("@id").then((id) => {
-      getDetailsFindByProgramId(id, programId).then((response) => {
+        getDetailsFindByDetailsProgramId(id, programId).then((response) => {
         expect(response.status).to.eq(200);
 
         const detailsFindProgram = response.body;
