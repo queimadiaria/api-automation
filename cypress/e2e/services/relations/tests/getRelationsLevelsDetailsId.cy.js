@@ -1,49 +1,50 @@
-import { getRelationsTargetsDetailsId } from "../requests/getRelationsTargetsDetailsId.request";
+import { getRelationsLevelsDetailsId } from "../requests/getRelationsLevelsDetailsId.request";
 
 describe(`/relations/targets/{detailsId}`, () => {
   before(() => {
     cy.getAuthToken().as("id");
   });
 
-  it("Get targets by id", () => {
-    const detailsId = 1;
+  it("Get levels by id", () => {
+    //const detailsId = 1;
     cy.get("@id").then((id) => {
-      getRelationsTargetsDetailsId(id, detailsId).then((response) => {
+      getRelationsLevelsDetailsId(id).then((response) => {
         expect(response.status).to.eq(200);
-        const detailsRelationsTargets = response.body;
-        detailsRelationsTargets.forEach((targetIdValue) => {
+        const detailsRelationsLevels = response.body;
+        detailsRelationsLevels.forEach((levelsIdValue) => {
           const expectedProperties = {
             id: "number",
             detailsProgramsId: "number",
-            targetId: "object",
+            levelsId: "object",
             updatedAt: "string",
             createdAt: "string",
           };
           for (const [key, expectedType] of Object.entries(
             expectedProperties
           )) {
-            const actualValue = targetIdValue[key];
+            const actualValue = levelsIdValue[key];
             expect(actualValue).to.be.a(expectedType);
           }
-          const detailsTargetId = targetIdValue.targetId;
-          const expectedDetailsTargetId = {
+          const detailsLevelsId = levelsIdValue.levelsId;
+          const expectedDetailsLevelsId = {
             id: "number",
-            type: "string",
-            translateBr: "string",
-            translateLatam: "string",
+            name: "string",
+            expressionId: "number",
+            linkImage: "string",
+            description: "string",
             updatedAt: "string",
             createdAt: "string",
           };
           for (const [key, expectedType] of Object.entries(
-            expectedDetailsTargetId
+            expectedDetailsLevelsId
           )) {
-            const actualValue = detailsTargetId[key];
+            const actualValue = detailsLevelsId[key];
             expect(actualValue).to.be.a(expectedType);
           }
-          const updatedAt = targetIdValue.updatedAt;
+          const updatedAt = levelsIdValue.updatedAt;
           expect(updatedAt).to.be.a("string");
 
-          const createdAt = targetIdValue.createdAt;
+          const createdAt = levelsIdValue.createdAt;
           expect(createdAt).to.be.a("string");
         });
       });
