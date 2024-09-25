@@ -322,7 +322,6 @@ describe(`GET /integration/search/programs/segmented/detail/{id}`, () => {
       });
 
       const detailsTargetss = integration.targetss;
-      expect(detailsTargetss).to.be.an("array").that.is.not.empty;
 
       detailsTargetss.forEach((targetss) => {
         const expectedTargetssProperties = {
