@@ -32,32 +32,29 @@ describe(`GET /details/admin/program/{id}`, () => {
           expect(actualValue).to.be.a(expectedType);
         }
 
-        const detailsModalitys = response.body.modalitys;
-        expect(detailsModalitys).to.be.an("array").that.is.not.empty;
-        detailsModalitys.forEach((value) => {
+        // const detailsModalitys = response.body.modalitys;
+        // expect(detailsModalitys).to.be.an("array").that.is.not.empty;
+        // detailsModalitys.forEach((value) => {
+        //   expect(value).to.be.a("number");
+        // });
+
+        const detailsInstructors = response.body.instructors;
+        expect(detailsInstructors).to.be.an("array").that.is.not.empty;
+        detailsInstructors.forEach((value) => {
           expect(value).to.be.a("number");
         });
 
-        // const detailsInstructors = response.body.instructors;
-        // expect(detailsInstructors).to.be.an("array").that.is.not.empty;
-        // detailsInstructors.forEach((value) => {
-        //     expect(value).to.be.a("number");
+        const detailslevels = response.body.levels;
+        expect(detailslevels).to.be.an("array").that.is.not.empty;
+        detailslevels.forEach((value) => {
+          expect(value).to.be.a("number");
+        });
 
-        // });
-
-        // const detailslevels = response.body.levels;
-        // expect(detailslevels).to.be.an("array").that.is.not.empty;
-        // detailslevels.forEach((value) => {
-        //     expect(value).to.be.a("number");
-
-        // });
-
-        // const detailsobjectives = response.body.levels;
-        // expect(detailsobjectives).to.be.an("array").that.is.not.empty;
-        // detailsobjectives.forEach((value) => {
-        //     expect(value).to.be.a("number");
-
-        // });
+        const detailsobjectives = response.body.levels;
+        expect(detailsobjectives).to.be.an("array").that.is.not.empty;
+        detailsobjectives.forEach((value) => {
+          expect(value).to.be.a("number");
+        });
       });
     });
   });

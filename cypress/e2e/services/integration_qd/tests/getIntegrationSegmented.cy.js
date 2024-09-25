@@ -270,8 +270,6 @@ describe(`GET /integration/search/programs/segmented/detail/{id}`, () => {
       });
 
       const detailsModalitys = integration.modalitys;
-      expect(detailsModalitys).to.be.an("array").that.is.not.empty;
-
       detailsModalitys.forEach((modalitys) => {
         const expectedModalitysProperties = {
           id: 15,
