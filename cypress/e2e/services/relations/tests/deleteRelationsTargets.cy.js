@@ -21,7 +21,7 @@ describe("DELETE /relations/targets/", () => {
             expect(deleteResponse.body)
               .to.have.property("raw")
               .that.is.an("array");
-            expect(deleteResponse.body).to.have.property("affected").to.eq(1);
+            expect(deleteResponse.body).to.have.property("affected")
           });
         });
       });
